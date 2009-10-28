@@ -1,10 +1,10 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FlexibleInstances #-}
-module Control.Monad.Failure (
-                              module Control.Monad,
-                              MonadFail(..)
-                             ) where
+{-# LANGUAGE OverlappingInstances #-}
+{-# LANGUAGE TemplateHaskell #-}
+
+module Control.Monad.Failure where
 
 import Control.Exception (throw, Exception)
 import Control.Monad
@@ -26,12 +26,27 @@ import Control.Monad.RWS
 #endif
 
 import Data.Monoid
+import Language.Haskell.TH.Syntax hiding (lift)
 import Text.PrettyPrint
 
 class Monad m => MonadFail e m where
     failure :: e -> m a
     failWithSrcLoc :: String -> e -> m a
     failWithSrcLoc _ = failure
+
+-- --------------------------------
+-- Error stack traces
+-- --------------------------------
+
+-- | Generating stack traces for failures
+class WithSrcLoc a where
+  -- | 'withLoc' records the given source location in the failure trace
+  --   if the underlying monad supports recording stack traces
+  --
+  --   By default 'withLoc' is defined as the identity on its second argument
+  withLoc :: String -> a -> a
+
+instance WithSrcLoc a where withLoc _ = id
 
 {-| Given a list of source locations and an error, @showFailWithStackTrace@ produces output of the form
 
@@ -45,6 +60,24 @@ showFailWithStackTrace :: Show e => [String] -> e -> String
 showFailWithStackTrace trace e = render$
              text (show e) $$
              text " in" <+> (vcat (map text $ reverse trace))
+
+-- | 'withLocTH' is a convenient TH macro which expands to 'withLoc' @\<source location\>@
+--   Usage:
+--
+--  > f x = $withLocTH $ do
+withLocTH :: Q Exp
+withLocTH = do
+  loc <- qLocation
+  let loc_msg = showLoc loc
+  [| withLoc loc_msg |]
+ where
+   showLoc Loc{loc_module=mod, loc_filename=filename, loc_start=start} = render $
+                     {- text package <> char '.' <> -}
+                     text mod <> parens (text filename) <> colon <+> text (show start)
+
+-- ----------
+-- Instances
+-- ----------
 
 instance Exception e => MonadFail e IO where
   failure = Control.Exception.throw
