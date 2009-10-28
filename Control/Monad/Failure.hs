@@ -4,6 +4,15 @@
 {-# LANGUAGE OverlappingInstances #-}
 {-# LANGUAGE TemplateHaskell #-}
 
+{-| Defines the class @MonadFail@ for monads which can fail,
+    and the class @MonadLoc@ for monads which support recording
+    the source code location and building a stack trace.
+
+ * Stack traces are only provided for explicitly annotated program points.
+   For now there is the TH macro 'withLocTH' to help with this.
+   Eventually a preprocessor could be written to automatically insert calls
+   to 'withLoc' at every do statement.
+-}
 module Control.Monad.Failure where
 
 import Control.Exception (throw, Exception)
@@ -39,14 +48,14 @@ class Monad m => MonadFail e m where
 -- --------------------------------
 
 -- | Generating stack traces for failures
-class WithSrcLoc a where
+class MonadLoc a where
   -- | 'withLoc' records the given source location in the failure trace
   --   if the underlying monad supports recording stack traces
   --
   --   By default 'withLoc' is defined as the identity on its second argument
   withLoc :: String -> a -> a
 
-instance WithSrcLoc a where withLoc _ = id
+instance MonadLoc a where withLoc _ = id
 
 {-| Given a list of source locations and an error, @showFailWithStackTrace@ produces output of the form
 
