@@ -87,6 +87,8 @@ withLocTH = do
 -- ----------
 -- Instances
 -- ----------
+instance MonadFail e Maybe where failure _ = Nothing
+instance MonadFail e []    where failure _ = []
 
 instance Exception e => MonadFail e IO where
   failure = Control.Exception.throw
