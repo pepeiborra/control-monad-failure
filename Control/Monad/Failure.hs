@@ -3,7 +3,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverlappingInstances #-}
 
-{-| Defines the class @MonadFail@ for monads which can fail,
+{-| Defines the class @MonadFailure@ for monads which can fail,
     and the class @MonadLoc@ for monads which support recording
     the source code location and building a stack trace.
 -}
@@ -30,35 +30,35 @@ import Control.Monad.RWS
 
 import Data.Monoid
 
-class Monad m => MonadFail e m where
+class Monad m => MonadFailure e m where
     failure :: e -> m a
 
 -- ----------
 -- Instances
 -- ----------
-instance MonadFail e Maybe where failure _ = Nothing
-instance MonadFail e []    where failure _ = []
+instance MonadFailure e Maybe where failure _ = Nothing
+instance MonadFailure e []    where failure _ = []
 
-instance Exception e => MonadFail e IO where
+instance Exception e => MonadFailure e IO where
   failure = Control.Exception.throw
 
-instance (Error e) => MonadFail e (Either e) where
+instance (Error e) => MonadFailure e (Either e) where
   failure = Left
 
-instance (Error e, Monad m) => MonadFail e (ErrorT e m) where
+instance (Error e, Monad m) => MonadFailure e (ErrorT e m) where
   failure = throwError
 
-instance MonadFail e m => MonadFail e (ListT m) where
+instance MonadFailure e m => MonadFailure e (ListT m) where
   failure = lift . failure
 
-instance MonadFail e m => MonadFail e (ReaderT r m) where
+instance MonadFailure e m => MonadFailure e (ReaderT r m) where
   failure = lift . failure
 
-instance (Monoid w, MonadFail e m) => MonadFail e (WriterT w  m) where
+instance (Monoid w, MonadFailure e m) => MonadFailure e (WriterT w  m) where
   failure = lift . failure
 
-instance MonadFail e m => MonadFail e (StateT s m) where
+instance MonadFailure e m => MonadFailure e (StateT s m) where
   failure = lift . failure
 
-instance (Monoid w, MonadFail e m) => MonadFail e (RWST r w s m) where
+instance (Monoid w, MonadFailure e m) => MonadFailure e (RWST r w s m) where
   failure = lift . failure
