@@ -3,9 +3,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverlappingInstances #-}
 
-{-| Defines the class @MonadFailure@ for monads which can fail,
-    and the class @MonadLoc@ for monads which support recording
-    the source code location and building a stack trace.
+{-| Defines the class @MonadFailure@ for monads which can fail.
 -}
 module Control.Monad.Failure where
 
