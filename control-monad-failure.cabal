@@ -11,24 +11,9 @@ synopsis: A class for monads which can fail with an error
 category: Control, Monads
 stability: experimental
 
-Flag transformers
-   default: False
-
-Flag extensibleExceptionsInBase
-
 Library
   buildable: True
-  build-depends: base, pretty, template-haskell
-
-  if flag(transformers)
-     build-depends: transformers
-     cpp-options: -DTRANSFORMERS
-  else
-     build-depends: mtl
-  if flag(extensibleExceptionsInBase)
-     build-depends: base >= 4
-  else
-     build-depends: extensible-exceptions
+  build-depends: base >= 4 && < 5, pretty, template-haskell, transformers
 
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:

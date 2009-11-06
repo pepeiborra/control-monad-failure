@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverlappingInstances #-}
@@ -11,7 +10,6 @@ module Control.Monad.Failure where
 
 import Control.Exception (throw, Exception)
 import Control.Monad
-#if TRANSFORMERS
 import Control.Monad.Trans
 import Control.Monad.Trans.Error
 import Control.Monad.Trans.List
@@ -19,14 +17,6 @@ import Control.Monad.Trans.Reader
 import Control.Monad.Trans.State
 import Control.Monad.Trans.Writer
 import Control.Monad.Trans.RWS
-#else
-import Control.Monad.Error
-import Control.Monad.List
-import Control.Monad.Reader
-import Control.Monad.State
-import Control.Monad.Writer
-import Control.Monad.RWS
-#endif
 
 import Data.Monoid
 
