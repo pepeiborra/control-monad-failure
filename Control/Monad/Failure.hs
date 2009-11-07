@@ -12,9 +12,12 @@ import Control.Monad.Trans
 import Control.Monad.Trans.Error
 import Control.Monad.Trans.List
 import Control.Monad.Trans.Reader
-import Control.Monad.Trans.State
-import Control.Monad.Trans.Writer
-import Control.Monad.Trans.RWS
+import Control.Monad.Trans.State.Lazy     as Lazy
+import Control.Monad.Trans.State.Strict   as Strict
+import Control.Monad.Trans.Writer.Lazy    as Lazy
+import Control.Monad.Trans.Writer.Strict  as Strict
+import Control.Monad.Trans.RWS.Lazy       as Lazy
+import Control.Monad.Trans.RWS.Strict     as Strict
 
 import Data.Monoid
 
@@ -42,11 +45,20 @@ instance MonadFailure e m => MonadFailure e (ListT m) where
 instance MonadFailure e m => MonadFailure e (ReaderT r m) where
   failure = lift . failure
 
-instance (Monoid w, MonadFailure e m) => MonadFailure e (WriterT w  m) where
+instance (Monoid w, MonadFailure e m) => MonadFailure e (Lazy.WriterT w  m) where
   failure = lift . failure
 
-instance MonadFailure e m => MonadFailure e (StateT s m) where
+instance MonadFailure e m => MonadFailure e (Lazy.StateT s m) where
   failure = lift . failure
 
-instance (Monoid w, MonadFailure e m) => MonadFailure e (RWST r w s m) where
+instance (Monoid w, MonadFailure e m) => MonadFailure e (Lazy.RWST r w s m) where
+  failure = lift . failure
+
+instance (Monoid w, MonadFailure e m) => MonadFailure e (Strict.WriterT w  m) where
+  failure = lift . failure
+
+instance MonadFailure e m => MonadFailure e (Strict.StateT s m) where
+  failure = lift . failure
+
+instance (Monoid w, MonadFailure e m) => MonadFailure e (Strict.RWST r w s m) where
   failure = lift . failure
