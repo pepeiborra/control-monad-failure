@@ -25,11 +25,6 @@ import Data.Monoid
 -- -----------------------
 -- MonadFailure Instances
 -- -----------------------
-instance MonadFailure e Maybe where failure _ = Nothing
-instance MonadFailure e []    where failure _ = []
-
-instance Exception e => MonadFailure e IO where
-  failure = Control.Exception.throw
 
 instance (Error e) => MonadFailure e (Either e) where
   failure = Left
