@@ -11,6 +11,9 @@ synopsis: A class for monads which can fail with an error.
 category: Control, Monads
 stability: experimental
 
+Flag mtl
+  default: True
+
 Library
   buildable: True
   build-depends: base >= 4 && < 5, pretty, template-haskell, transformers
@@ -18,3 +21,9 @@ Library
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:
      Control.Monad.Failure
+     Control.Monad.Failure.Class
+     Control.Monad.Failure.Transformers
+  if flag(mtl)
+    cpp-options: -DMTL
+    build-depends: mtl
+    exposed-modules: Control.Monad.Failure.Mtl
