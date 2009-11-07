@@ -1,9 +1,8 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 
-module Control.Monad.Failure.Mtl where
+module Control.Monad.Failure.Mtl (module Control.Monad.Failure.Class) where
 
 import Control.Monad.Failure.Class
 

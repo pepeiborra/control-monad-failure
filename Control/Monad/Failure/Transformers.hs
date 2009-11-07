@@ -1,15 +1,13 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE PackageImports #-}
 
-module Control.Monad.Failure.Transformers where
+module Control.Monad.Failure.Transformers (module Control.Monad.Failure.Class) where
 
 import Control.Monad.Failure.Class
 
 import Control.Exception (throw, catch, Exception, SomeException(..))
-import Control.Monad
 import "transformers" Control.Monad.Trans
 import Control.Monad.Trans.Error
 import Control.Monad.Trans.List
