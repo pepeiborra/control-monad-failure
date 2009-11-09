@@ -27,3 +27,7 @@ Library
     cpp-options: -DMTL
     build-depends: mtl
     exposed-modules: Control.Monad.Failure.Mtl
+
+source-repository head
+  type:     git
+  location: git://github.com/pepeiborra/monadloc.git
