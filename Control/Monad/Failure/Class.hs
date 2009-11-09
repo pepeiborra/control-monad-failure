@@ -1,9 +1,12 @@
 {-# LANGUAGE Rank2Types #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-| Defines the class @MonadFailure@ for monads which can fail.
 -}
 module Control.Monad.Failure.Class where
 
 import Control.Exception (throw, Exception)
+import Data.Typeable
 
 class Monad m => MonadFailure e m where
     failure :: e -> m a
@@ -24,3 +27,13 @@ instance MonadFailure e []    where failure _ = []
 
 instance Exception e => MonadFailure e IO where
   failure = Control.Exception.throw
+
+-- | Call 'failure' with a 'String'.
+failureString :: MonadFailure StringException m => String -> m a
+failureString = failure . StringException
+
+newtype StringException = StringException String
+    deriving Typeable
+instance Show StringException where
+    show (StringException s) = "StringException: " ++ s
+instance Exception StringException
