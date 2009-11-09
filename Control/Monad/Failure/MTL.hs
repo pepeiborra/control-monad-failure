@@ -2,7 +2,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 
-module Control.Monad.Failure.Mtl (module Control.Monad.Failure.Class) where
+module Control.Monad.Failure.MTL (module Control.Monad.Failure.Class) where
 
 import Control.Monad.Failure.Class
 
