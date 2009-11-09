@@ -30,4 +30,4 @@ Library
 
 source-repository head
   type:     git
-  location: git://github.com/pepeiborra/monadloc.git
+  location: git://github.com/pepeiborra/control-monad-failure.git
