@@ -2,6 +2,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE PackageImports #-}
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Control.Monad.Failure.Transformers (module Control.Monad.Failure.Class) where
 
