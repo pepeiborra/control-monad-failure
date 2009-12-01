@@ -1,0 +1,29 @@
+DESCRIPTION:
+
+This package provides a class for monads which can fail with an error
+
+>   class Monad m => MonadFailure e m where
+>       failure :: e -> m a
+
+
+USAGE:
+
+There are two versions of this library, one packaging instances for the
+monads defined in the transformers library, and another one with instances
+for the monad transformer library (mtl).
+
+You can install each of them with Cabal by first removing the .pp suffix
+from its associated cabal descriptor and then running the command "cabal install".
+The cabal descriptor files are:
+
+transformers  -  control-monad-failure.cabal.pp
+mtl           -  control-monad-failure-mtl.cabal.pp
+
+
+CONTRIBUTING:
+
+The sources are available in a git repository at:
+
+http://github.com/pepeiborra/control-monad-failure
+
+Patches are welcome.
