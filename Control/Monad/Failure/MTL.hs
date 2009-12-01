@@ -6,6 +6,7 @@
 module Control.Monad.Failure.MTL (module Control.Monad.Failure.Class) where
 
 import Control.Monad.Failure.Class
+import Control.Monad.Failure.Transformers ()
 
 import Control.Monad.Error
 import Control.Monad.List
