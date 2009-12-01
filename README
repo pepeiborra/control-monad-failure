@@ -6,7 +6,11 @@ This package provides a class for monads which can fail with an error
 >       failure :: e -> m a
 
 
-USAGE:
+There is further information in the Haskell wiki:
+
+http://www.haskell.org/haskellwiki/Failure
+
+INSTALL:
 
 There are two versions of this library, one packaging instances for the
 monads defined in the transformers library, and another one with instances
