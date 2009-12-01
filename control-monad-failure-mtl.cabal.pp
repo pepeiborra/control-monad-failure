@@ -1,5 +1,5 @@
-name: control-monad-failure
-version: 0.4
+name: control-monad-failure-mtl
+version: 0.5.0
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
@@ -11,23 +11,15 @@ synopsis: A class for monads which can fail with an error.
 category: Control, Monads
 stability: experimental
 
-Flag mtl
-  default: True
-
 Library
   buildable: True
-  build-depends: base >= 4 && < 5, transformers
+  build-depends: base >= 4 && < 5, mtl
   ghc-options: -Wall
-
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:
      Control.Monad.Failure
      Control.Monad.Failure.Class
-     Control.Monad.Failure.Transformers
-  if flag(mtl)
-    cpp-options: -DMTL
-    build-depends: mtl
-    exposed-modules: Control.Monad.Failure.MTL
+     Control.Monad.Failure.MTL
 
 source-repository head
   type:     git

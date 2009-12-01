@@ -6,7 +6,6 @@
 module Control.Monad.Failure.MTL (module Control.Monad.Failure.Class) where
 
 import Control.Monad.Failure.Class
-import Control.Monad.Failure.Transformers ()
 
 import Control.Monad.Error
 import Control.Monad.List
@@ -22,6 +21,9 @@ import Data.Monoid
 -- -----------------------
 -- MonadFailure Instances
 -- -----------------------
+
+instance (Error e) => MonadFailure e (Either e) where
+  failure = Left
 
 instance (Error e, Monad m) => MonadFailure e (ErrorT e m) where
   failure = throwError
