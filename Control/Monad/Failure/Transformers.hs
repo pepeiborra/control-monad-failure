@@ -56,9 +56,6 @@ instance (Monoid w, Monad m, Failure e m) => Failure e (Strict.RWST r w s m) whe
 -- WrapFailure instances
 -- ---------------------
 
-instance Exception e => WrapFailure e IO where
-  wrapFailure f m = m `Control.Exception.catch` \e@SomeException{} -> Control.Exception.throw (f e)
-
 instance (WrapFailure e m, Monad m) => WrapFailure e (ListT m) where
   wrapFailure f = ListT . wrapFailure f . runListT
 
