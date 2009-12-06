@@ -1,5 +1,5 @@
 name: control-monad-failure
-version: 0.5.0
+version: 0.6.0
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
@@ -13,13 +13,12 @@ stability: experimental
 
 Library
   buildable: True
-  build-depends: base >= 4 && < 5, transformers
+  build-depends: base >= 4 && < 5, failure, transformers
   ghc-options: -Wall
 
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:
      Control.Monad.Failure
-     Control.Monad.Failure.Class
      Control.Monad.Failure.Transformers
 
 source-repository head

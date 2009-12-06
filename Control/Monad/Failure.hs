@@ -1,3 +1,4 @@
-module Control.Monad.Failure (module Control.Monad.Failure.Class) where
+module Control.Monad.Failure (module Control.Failure) where
 
-import Control.Monad.Failure.Class
+import Control.Failure
+

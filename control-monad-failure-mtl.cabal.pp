@@ -1,5 +1,5 @@
 name: control-monad-failure-mtl
-version: 0.5.0
+version: 0.6.0
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
@@ -13,12 +13,11 @@ stability: experimental
 
 Library
   buildable: True
-  build-depends: base >= 4 && < 5, mtl
+  build-depends: base >= 4 && < 5, failure, mtl
   ghc-options: -Wall
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:
      Control.Monad.Failure
-     Control.Monad.Failure.Class
      Control.Monad.Failure.MTL
 
 source-repository head
