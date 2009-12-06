@@ -6,8 +6,9 @@
 
 module Control.Monad.Failure.Transformers (Failure(..),MonadFailure) where
 
-import Control.Failure
+import Control.Failure hiding (Error)
 
+import Control.Applicative (Applicative)
 import Control.Exception (throw, catch, Exception, SomeException(..))
 import "transformers" Control.Monad.Trans
 import Control.Monad.Trans.Error
@@ -59,27 +60,27 @@ instance (Monoid w, MonadFailure e m) => Failure e (Strict.RWST r w s m) where
 instance Exception e => WrapFailure e IO where
   wrapFailure f m = m `Control.Exception.catch` \e@SomeException{} -> Control.Exception.throw (f e)
 
-instance (WrapFailure e m, Monad m) => WrapFailure e (ListT m) where
+instance (WrapFailure e m, Applicative m, Monad m) => WrapFailure e (ListT m) where
   wrapFailure f = ListT . wrapFailure f . runListT
 
-instance (WrapFailure e m, Monad m) => WrapFailure e (ReaderT r m) where
+instance (WrapFailure e m, Applicative m, Monad m) => WrapFailure e (ReaderT r m) where
   wrapFailure f m = ReaderT $ \r -> wrapFailure f (runReaderT m r)
 
-instance (WrapFailure e m, Monoid w, Monad m) => WrapFailure e (Lazy.WriterT w m)
+instance (WrapFailure e m, Monoid w, Applicative m, Monad m) => WrapFailure e (Lazy.WriterT w m)
  where
   wrapFailure f = Lazy.WriterT . wrapFailure f . Lazy.runWriterT
 
 
 -- all the following instances require undecidable instances
-instance (WrapFailure e m, Monad m) => WrapFailure e (Lazy.StateT s m) where
+instance (WrapFailure e m, Applicative m, Monad m) => WrapFailure e (Lazy.StateT s m) where
   wrapFailure f m = Lazy.StateT $ \s -> wrapFailure f (Lazy.runStateT m s)
 
-instance (WrapFailure e m, Monoid w, Monad m) => WrapFailure e (Lazy.RWST r w s m) where
+instance (WrapFailure e m, Monoid w, Applicative m, Monad m) => WrapFailure e (Lazy.RWST r w s m) where
   wrapFailure f m = Lazy.RWST $ \r s -> wrapFailure f (Lazy.runRWST m r s)
 
-instance (WrapFailure e m, Monad m) => WrapFailure e (Strict.StateT s m) where
+instance (WrapFailure e m, Applicative m, Monad m) => WrapFailure e (Strict.StateT s m) where
   wrapFailure f m = Strict.StateT $ \s -> wrapFailure f (Strict.runStateT m s)
 
-instance (WrapFailure e m, Monoid w, Monad m) => WrapFailure e (Strict.RWST r w s m)
+instance (WrapFailure e m, Monoid w, Applicative m, Monad m) => WrapFailure e (Strict.RWST r w s m)
  where
   wrapFailure f m = Strict.RWST $ \r s -> wrapFailure f (Strict.runRWST m r s)
