@@ -8,12 +8,14 @@ maintainer: pepeiborra@gmail.com
 homepage: http://github.com/pepeiborra/control-monad-failure
 description: A class for monads which can fail with an error.
 synopsis: A class for monads which can fail with an error.
-category: Control, Monads
+category: Control, Monads, Failure
 stability: experimental
 
 Library
   buildable: True
-  build-depends: base >= 4 && < 5, failure, mtl
+  build-depends: base >= 4 && < 5,
+                 failure >= 0.0.0 && < 0.1,
+                 mtl >= 1.1.0.2 && < 1.2
   ghc-options: -Wall
   extensions:  MultiParamTypeClasses, FlexibleInstances
   exposed-modules:
