@@ -8,8 +8,11 @@ module Control.Monad.Failure.Transformers (Failure(..),MonadFailure) where
 
 import Control.Failure hiding (Error)
 
-import Control.Exception (throw, catch, Exception, SomeException(..))
+#ifdef TRANSFORMERS_02
+import "transformers" Control.Monad.Trans.Class
+#else
 import "transformers" Control.Monad.Trans
+#endif
 import Control.Monad.Trans.Error
 import Control.Monad.Trans.List
 import Control.Monad.Trans.Reader
