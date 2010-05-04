@@ -1,5 +1,5 @@
 name: control-monad-failure
-version: 0.6.1.1
+version: 0.6.1.2
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
