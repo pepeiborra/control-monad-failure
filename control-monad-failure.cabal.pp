@@ -11,9 +11,6 @@ synopsis: A class for monads which can fail with an error.
 category: Control, Monads, Failure
 stability: experimental
 
-flag transformers_02
-    description: transformers = 0.2.*
-
 Library
   buildable: True
   build-depends: base >= 4 && < 5,
