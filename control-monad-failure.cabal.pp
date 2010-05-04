@@ -18,7 +18,11 @@ Library
                  transformers >= 0.1 && < 0.3
   ghc-options: -Wall
 
-  extensions:  MultiParamTypeClasses, FlexibleInstances, CPP
+  extensions: MultiParamTypeClasses,
+              UndecidableInstances,
+              FlexibleInstances,
+              PackageImports,
+              CPP
   exposed-modules:
      Control.Monad.Failure
      Control.Monad.Failure.Transformers
