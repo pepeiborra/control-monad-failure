@@ -1,5 +1,5 @@
 name: control-monad-failure
-version: 0.6.1
+version: 0.6.1.1
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
@@ -17,12 +17,8 @@ flag transformers_02
 Library
   buildable: True
   build-depends: base >= 4 && < 5,
-                 failure >= 0.0.0 && < 0.1
-  if flag(transformers_02)
-    build-depends: transformers >= 0.2 && < 0.3
-    CPP-OPTIONS: -DTRANSFORMERS_02
-  else
-    build-depends: transformers >= 0.1 && < 0.2
+                 failure >= 0.0.0 && < 0.1,
+                 transformers >= 0.1 && < 0.3
   ghc-options: -Wall
 
   extensions:  MultiParamTypeClasses, FlexibleInstances, CPP

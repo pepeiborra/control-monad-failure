@@ -8,7 +8,7 @@ module Control.Monad.Failure.Transformers (Failure(..),MonadFailure) where
 
 import Control.Failure hiding (Error)
 
-#ifdef TRANSFORMERS_02
+#if MIN_VERSION_transformers(0,2,0)
 import "transformers" Control.Monad.Trans.Class
 #else
 import "transformers" Control.Monad.Trans
