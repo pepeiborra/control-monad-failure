@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Control.Monad.Failure.Transformers (Failure(..),MonadFailure) where
+module Control.Monad.Failure.Transformers (Failure(..)) where
 
 import Control.Failure hiding (Error)
 

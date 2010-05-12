@@ -1,5 +1,5 @@
 name: control-monad-failure
-version: 0.6.1.2
+version: 0.7.0
 Cabal-Version:  >= 1.6
 build-type: Simple
 license: PublicDomain
@@ -14,7 +14,7 @@ stability: experimental
 Library
   buildable: True
   build-depends: base >= 4 && < 5,
-                 failure >= 0.0.0 && < 0.1,
+                 failure >= 0.1.0 && < 0.2,
                  transformers >= 0.1 && < 0.3
   ghc-options: -Wall
 

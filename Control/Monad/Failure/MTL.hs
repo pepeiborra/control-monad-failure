@@ -16,7 +16,6 @@ import Control.Monad.Writer.Lazy    as Lazy
 import Control.Monad.Writer.Strict  as Strict
 import Control.Monad.RWS.Lazy       as Lazy
 import Control.Monad.RWS.Strict     as Strict
-import Data.Monoid
 
 -- -----------------------
 -- MonadFailure Instances
